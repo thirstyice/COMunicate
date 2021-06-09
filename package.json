@@ -3,8 +3,8 @@
     "electron-squirrel-startup": "^1.0.0",
     "serialport": "^9.1.0"
   },
-  "name": "comunicate",
-  "version": "0.1.0",
+  "name": "COMunicate",
+  "version": "0.2.0",
   "description": "Serial terminal app",
   "main": "main.js",
   "scripts": {
@@ -17,7 +17,8 @@
     "serial",
     "terminal",
     "emulator",
-    "com"
+    "com",
+    "port"
   ],
   "author": "thirstyice",
   "license": "GPL-3.0-or-later",
