@@ -88,7 +88,7 @@ ipcMain.on("send", (event, message) => {
 		})
 	} else {
 		console.warn("Port not connected");
-		event.reply("error", "Port not connected");
+		event.reply("error", new Error("Port not connected"));
 	}
 });
 

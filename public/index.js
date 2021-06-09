@@ -3,6 +3,10 @@ function reloadPortsList() {
 }
 var portUpdator = window.setInterval(reloadPortsList, 1000);
 
+electron.on("error", (event, error) => {
+	console.error(error);
+	alert(error.message);
+});
 
 function updateDropdown(name, list, selected = "") {
 	var selector = document.getElementById(name + "Selector");
