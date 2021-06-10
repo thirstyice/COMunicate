@@ -71,6 +71,7 @@ function connect() {
 			window.alert("No " + name + " selected!");
 			return;
 		}
+		window.localStorage[name]=dropdown.value;
 		portSettings[name]=dropdown.value;
 	}
 	console.log(portSettings);
@@ -136,19 +137,37 @@ electron.on("sent", (event, message) => {
 });
 window.onload = function () {
 	reloadPortsList();
+
+
 	updateDropdown("speed",
 		[110, 300, 1200, 2400, 4800, 9600, 14400, 19200, 38400, 57600, 115200],
-		9600
+		window.localStorage.speed ? window.localStorage.speed : 9600
 	);
 	updateDropdown("flow",
 		["none","XON/XOFF","RTS/CTS"],
-		"none"
+		window.localStorage.flow ? window.localStorage.flow : "none"
 	); // TODO: better flow control
-	updateDropdown("eol", ["CRLF", "CR", "LF", "none"], "CRLF");
-	updateDropdown("dataBits", [8,7,6,5], 8);
-	updateDropdown("parity", ["None", "Even", "Odd", "Mark", "Space"], "None");
-	updateDropdown("stopBits", [1,2], 1);
-	updateDropdown("encoding", ["utf-8", "ascii", "base64", "binary", "hex"], "utf-8")
+	updateDropdown("eol",
+		["CRLF", "CR", "LF", "none"],
+		window.localStorage.eol ? window.localStorage.eol : "CRLF"
+	);
+	updateDropdown("dataBits",
+		[8,7,6,5],
+		window.localStorage.dataBits ? window.localStorage.dataBits : 8
+	);
+	updateDropdown("parity",
+		["None", "Even", "Odd", "Mark", "Space"],
+		window.localStorage.parity ? window.localStorage.parity : "None"
+	);
+	updateDropdown("stopBits",
+		[1,2],
+		window.localStorage.stopBits ? window.localStorage.stopBits : 1
+	);
+	updateDropdown("encoding",
+		["utf-8", "ascii", "base64", "binary", "hex"],
+		window.localStorage.speed ? window.localStorage.speed : "utf-8"
+	);
+
 
 	document.getElementById("connectButton").addEventListener("click", connect);
 	document.getElementById("sendButton")
