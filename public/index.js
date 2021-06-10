@@ -59,10 +59,6 @@ electron.on("setPortList", (event, portList) => {
 	updateDropdown("port", paths);
 });
 
-function dropdownChange(event) {
-	var changed = event.target.id.replace("Selector", "");
-	electron.emit("set" + changed, event.target.value);
-}
 function connect() {
 	var portSettings = {};
 	for (dropdown of document.getElementById("connection").getElementsByClassName("dropdown")) {
