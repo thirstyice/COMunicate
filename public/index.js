@@ -88,8 +88,14 @@ electron.on("connected", () => {
 	button.addEventListener("click", disconnect);
 	button.innerText = "Disconnect";
 
-	document.getElementById("sendButton").getElementsByTagName("button")[0].removeAttribute("disabled", "");
-	document.getElementById("message").getElementsByTagName("input")[0].removeAttribute("disabled", "");
+	document.getElementById("sendButton")
+		.getElementsByTagName("button")[0]
+		.removeAttribute("disabled", "")
+	;
+	document.getElementById("message")
+		.getElementsByTagName("input")[0]
+		.removeAttribute("disabled", "")
+	;
 });
 electron.on("disconnected", () => {
 	for (dropdown of document.getElementById("connection").getElementsByClassName("dropdown")) {
@@ -100,8 +106,14 @@ electron.on("disconnected", () => {
 	button.removeEventListener("click", disconnect);
 	button.innerText = "Connect";
 
-	document.getElementById("sendButton").getElementsByTagName("button")[0].setAttribute("disabled", "");
-	document.getElementById("message").getElementsByTagName("input")[0].setAttribute("disabled", "");
+	document.getElementById("sendButton")
+		.getElementsByTagName("button")[0]
+		.setAttribute("disabled", "")
+	;
+	document.getElementById("message")
+		.getElementsByTagName("input")[0]
+		.setAttribute("disabled", "")
+	;
 });
 electron.on("recieved", (event, data) => {
 	var eol=document.getElementById("eolSelector").value.replace("CR", "␍").replace("LF", "␤");
@@ -124,8 +136,14 @@ electron.on("sent", (event, message) => {
 });
 window.onload = function () {
 	reloadPortsList();
-	updateDropdown("speed", [110, 300, 1200, 2400, 4800, 9600, 14400, 19200, 38400, 57600, 115200], 9600);
-	updateDropdown("flow", ["none","XON/XOFF","RTS/CTS"], "none"); // TODO: better flow control
+	updateDropdown("speed",
+		[110, 300, 1200, 2400, 4800, 9600, 14400, 19200, 38400, 57600, 115200],
+		9600
+	);
+	updateDropdown("flow",
+		["none","XON/XOFF","RTS/CTS"],
+		"none"
+	); // TODO: better flow control
 	updateDropdown("eol", ["CRLF", "CR", "LF", "none"], "CRLF");
 	updateDropdown("dataBits", [8,7,6,5], 8);
 	updateDropdown("parity", ["None", "Even", "Odd", "Mark", "Space"], "None");
@@ -133,12 +151,18 @@ window.onload = function () {
 	updateDropdown("encoding", ["utf-8", "ascii", "base64", "binary", "hex"], "utf-8")
 
 	document.getElementById("connectButton").addEventListener("click", connect);
-	document.getElementById("sendButton").getElementsByTagName("button")[0].addEventListener("click", send);
-	document.getElementById("message").getElementsByTagName("input")[0].addEventListener("keyup", function(event) {
-	// Number 13 is the "Enter" key on the keyboard
-	if (event.keyCode === 13) {
-		event.preventDefault();
-		document.getElementById("sendButton").getElementsByTagName("button")[0].click();
-	}
-});
+	document.getElementById("sendButton")
+		.getElementsByTagName("button")[0]
+		.addEventListener("click", send)
+	;
+	document.getElementById("message")
+		.getElementsByTagName("input")[0]
+		.addEventListener("keyup", function(event) {
+			// Number 13 is the "Enter" key on the keyboard
+			if (event.keyCode === 13) {
+				event.preventDefault();
+				document.getElementById("sendButton").getElementsByTagName("button")[0].click();
+			}
+		})
+	;
 }
