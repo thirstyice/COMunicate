@@ -122,10 +122,6 @@ electron.on("sent", (event, message) => {
 	var newlineRegex = new RegExp( eol + "([^\r\n])", "g" );
 	sent.value = sent.value.replace(newlineRegex,eol+"\n$1");
 });
-electron.on("error", (event, error) => {
-	console.error(error);
-	// TODO: Better error handling
-})
 window.onload = function () {
 	reloadPortsList();
 	updateDropdown("speed", [110, 300, 1200, 2400, 4800, 9600, 14400, 19200, 38400, 57600, 115200], 9600);
