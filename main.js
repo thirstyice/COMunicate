@@ -120,7 +120,7 @@ const template = [
 				click: createTerminalWindow
 			},
 			{ role: 'close' },
-      ...(isMac ? [] : { role: 'quit' })
+      ...(isMac ? [] : [{ role: 'quit' }])
     ]
   },
   // { role: 'editMenu' }
