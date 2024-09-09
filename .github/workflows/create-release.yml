@@ -1,0 +1,44 @@
+on:
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+*"
+
+jobs:
+  draft-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Update package.json
+        uses: ramonpaolo/bump-version@v2.3.1
+        with:
+          tag: ${{ github.ref_name }}
+          commit: true
+          branch_to_push: 'main'
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          generate_release_notes: true
+  make-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4.0.3
+      - name: Install Deps
+        run: npm install
+      - name: Make
+        run: npm run make
+      - name: Add to release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            out/make/**/*.deb
+            out/make/**/*.rpm
+        
+        
+      
