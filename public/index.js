@@ -161,7 +161,7 @@ window.onload = function () {
 	);
 	updateDropdown("encoding",
 		["utf-8", "ascii", "base64", "binary", "hex"],
-		window.localStorage.speed ? window.localStorage.speed : "utf-8"
+		window.localStorage.encoding ? window.localStorage.encoding : "utf-8"
 	);
 
 
