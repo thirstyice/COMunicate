@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0",
+    "node-gyp": "^10.2.0",
     "serialport": "^9.1.0"
   },
   "name": "COMunicate",
