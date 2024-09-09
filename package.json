@@ -4,8 +4,8 @@
     "node-gyp": "^10.2.0",
     "serialport": "^9.1.0"
   },
-  "name": "COMunicate",
-  "version": "0.2.1",
+  "name": "comunicate",
+  "version": "0.2.2",
   "description": "Serial terminal app",
   "main": "main.js",
   "scripts": {
