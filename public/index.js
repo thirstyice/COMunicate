@@ -136,7 +136,7 @@ window.onload = function () {
 
 
 	updateDropdown("speed",
-		[110, 300, 1200, 2400, 4800, 9600, 14400, 19200, 38400, 57600, 115200],
+		[110, 300, 1200, 2400, 4800, 9600, 14400, 19200, 31250, 38400, 57600, 115200, 250000],
 		window.localStorage.speed ? window.localStorage.speed : 9600
 	);
 	updateDropdown("flow",
