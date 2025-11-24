@@ -7,8 +7,6 @@
 		<meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
 		<link rel="stylesheet" href="css/main.css">
 		<script src="index.js" charset="utf-8"></script>
-
-		</script>
 		<title>COMunicate</title>
 	</head>
 	<body>
@@ -24,7 +22,11 @@
 										<select class="dropdown" id="portSelector">
 										</select>
 									</td>
-									<td><button id="connectButton">Connect</button></td>
+									<td>
+										<button id="connectButton">
+											Connect
+										</button>
+									</td>
 								</tr>
 								<tr>
 									<td>
@@ -81,19 +83,27 @@
 								</tr>
 								<tr>
 									<td id="recieved">
-										<textarea class="textbox" readonly></textarea>
+										<textarea class="textbox" readonly>
+										</textarea>
 									</td>
 									<td>
 										<table>
 											<tbody>
 												<tr>
-													<td colspan="2" id="sent"><textarea class="textbox" readonly></textarea></td>
+													<td colspan="2" id="sent">
+														<textarea class="textbox" readonly>
+														</textarea>
+													</td>
 												</tr>
 												<tr>
 													<td id="message">
-														<input disabled></input>
+														<input disabled>
 													</td>
-													<td id="sendButton"><button disabled>Send</button></td>
+													<td id="sendButton">
+														<button disabled>
+															Send
+														</button>
+													</td>
 												</tr>
 											</tbody>
 										</table>
