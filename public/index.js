@@ -1,7 +1,9 @@
+"use strict";
+
 function reloadPortsList() {
 	electron.emit("getPortList");
 }
-var portUpdator = window.setInterval(reloadPortsList, 1000);
+const portUpdator = window.setInterval(reloadPortsList, 1000);
 
 electron.on("error", (event, error) => {
 	console.error(error);
@@ -9,11 +11,11 @@ electron.on("error", (event, error) => {
 });
 
 function updateDropdown(name, list, selected = "") {
-	var selector = document.getElementById(name + "Selector");
-	var currentOptions = selector.children;
+	const selector = document.getElementById(name + "Selector");
+	const currentOptions = selector.children;
 	if (currentOptions.length == 0 && selected=="") {
 		selector.innerHTML = "";
-		var defaultOption = document.createElement("option");
+		const defaultOption = document.createElement("option");
 		defaultOption.setAttribute("selected", "");
 		defaultOption.setAttribute("value", "");
 		defaultOption.innerText = "Choose " + name;
@@ -26,7 +28,7 @@ function updateDropdown(name, list, selected = "") {
 		if (option.value ==  "") {
 			continue;
 		}
-		var index = list.indexOf(option.value);
+		const index = list.indexOf(option.value);
 		if ( index != -1 ) {
 			for (; index<list.length; index++) {
 				list[index]=list[index+1];
@@ -41,7 +43,7 @@ function updateDropdown(name, list, selected = "") {
 	}
 
 	for (element of list) {
-		var newOption = document.createElement("option");
+		const newOption = document.createElement("option");
 		newOption.innerText = element;
 		newOption.value = element;
 		if (element==selected) {
@@ -52,7 +54,7 @@ function updateDropdown(name, list, selected = "") {
 }
 
 electron.on("setPortList", (event, portList) => {
-	var paths = [];
+	let paths = [];
 	for (port of portList) {
 		paths.push(port.path)
 	}
@@ -60,9 +62,9 @@ electron.on("setPortList", (event, portList) => {
 });
 
 function connect() {
-	var portSettings = {};
+	let portSettings = {};
 	for (dropdown of document.getElementById("connection").getElementsByClassName("dropdown")) {
-		var name = dropdown.id.replace("Selector","");
+		const name = dropdown.id.replace("Selector","");
 		if (dropdown.value == "") {
 			window.alert("No " + name + " selected!");
 			return;
@@ -80,7 +82,7 @@ electron.on("connected", () => {
 	for (dropdown of document.getElementById("connection").getElementsByClassName("dropdown")) {
 		dropdown.setAttribute("disabled", "");
 	}
-	var button = document.getElementById("connectButton");
+	const button = document.getElementById("connectButton");
 	button.removeEventListener("click", connect);
 	button.addEventListener("click", disconnect);
 	button.innerText = "Disconnect";
@@ -98,7 +100,7 @@ electron.on("disconnected", () => {
 	for (dropdown of document.getElementById("connection").getElementsByClassName("dropdown")) {
 		dropdown.removeAttribute("disabled", "");
 	}
-	var button = document.getElementById("connectButton");
+	const button = document.getElementById("connectButton");
 	button.addEventListener("click", connect);
 	button.removeEventListener("click", disconnect);
 	button.innerText = "Connect";
@@ -120,7 +122,7 @@ electron.on("recieved", (event, data) => {
 	recieved.value = recieved.value.replace(newlineRegex,eol+"\n$1");
 })
 function send() {
-	var message = document.getElementById("message").getElementsByTagName("input")[0];
+	const message = document.getElementById("message").getElementsByTagName("input")[0];
 	electron.emit("send", message.value);
 	message.value = "";
 }
@@ -133,7 +135,6 @@ electron.on("sent", (event, message) => {
 });
 window.onload = function () {
 	reloadPortsList();
-
 
 	updateDropdown("speed",
 		[110, 300, 1200, 2400, 4800, 9600, 14400, 19200, 31250, 38400, 57600, 115200, 250000],
@@ -163,7 +164,6 @@ window.onload = function () {
 		["utf-8", "ascii", "base64", "binary", "hex"],
 		window.localStorage.encoding ? window.localStorage.encoding : "utf-8"
 	);
-
 
 	document.getElementById("connectButton").addEventListener("click", connect);
 	document.getElementById("sendButton")
