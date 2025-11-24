@@ -1,5 +1,7 @@
 "use strict";
 
+let eol = "";
+
 function reloadPortsList() {
 	electron.emit("getPortList");
 }
@@ -115,23 +117,19 @@ electron.on("disconnected", () => {
 	;
 });
 electron.on("recieved", (event, data) => {
-	var eol=document.getElementById("eolSelector").value.replace("CR", "␍").replace("LF", "␤");
-	var recieved = document.getElementById("recieved").getElementsByTagName("textarea")[0]
-	recieved.value = recieved.value + data.replace("\r", "␍").replace("\n", "␤")
-	var newlineRegex = new RegExp( eol + "([^\r\n])", "g" );
-	recieved.value = recieved.value.replace(newlineRegex,eol+"\n$1");
+	const recieved = document.getElementById("recieved").getElementsByTagName("textarea")[0]
+	data = data.replace("\r", "␍").replace("\n", "␤").replace(eol, eol+"\n");
+	recieved.value = recieved.value + data;
 })
 function send() {
 	const message = document.getElementById("message").getElementsByTagName("input")[0];
-	electron.emit("send", message.value);
+	electron.emit("send", message.value + eol.replace("␍", "\r").replace("␤","\n"));
 	message.value = "";
 }
 electron.on("sent", (event, message) => {
-	var eol=document.getElementById("eolSelector").value.replace("CR", "␍").replace("LF", "␤");
-	var sent = document.getElementById("sent").getElementsByTagName("textarea")[0]
-	sent.value = sent.value + message.replace("\r", "␍").replace("\n", "␤");
-	var newlineRegex = new RegExp( eol + "([^\r\n])", "g" );
-	sent.value = sent.value.replace(newlineRegex,eol+"\n$1");
+	const sent = document.getElementById("sent").getElementsByTagName("textarea")[0]
+	message = message.replace(eol, eol+"\n");
+	sent.value = sent.value + message;
 });
 window.onload = function () {
 	reloadPortsList();
@@ -180,4 +178,14 @@ window.onload = function () {
 			}
 		})
 	;
+	document.getElementById("eolSelector").addEventListener("change", function() {
+		const newEol = document.getElementById("eolSelector").value;
+		window.localStorage["eol"] = newEol;
+		eol = newEol.replace("CR", "␍").replace("LF", "␤");
+		const fields = ["received", "sent"];
+		for (const field of fields) {
+			text = document.getElementById(field).getElementsByTagName("textarea")[0];
+			text.value = text.value.replace("\n","").replace(eol, eol+"\n");
+		}
+	});
 }

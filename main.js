@@ -56,7 +56,6 @@ ipcMain.on("connect", (event, options) => {
 		port.on("data", (data) => {
 			event.reply("recieved", data.toString(encoding));
 		})
-		eol=(options.eol.match("CR")?"\r":"")+(options.eol.match("LF")?"\n":"");
 	}
 	if (port.isOpen) {
 		port.close((error)=> {
@@ -86,8 +85,8 @@ ipcMain.on("disconnect", (event) => {
 ipcMain.on("send", (event, message) => {
 	if (port.isOpen) {
 		console.log("Sending: " + message);
-		port.write(message + eol, encoding, () => {
-			event.reply("sent", message + eol);
+		port.write(message.replace("␍","\r").replace("␤","\n"), encoding, () => {
+			event.reply("sent", message);
 		})
 	} else {
 		console.warn("Port not connected");
