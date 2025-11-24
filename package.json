@@ -2,7 +2,8 @@
   "dependencies": {
     "serialport": "^13.0.0"
   },
-  "name": "COMunicate",
+  "name": "comunicate",
+	"productName": "COMunicate",
   "version": "0.2.2",
   "description": "Serial terminal app",
   "main": "main.js",
@@ -35,10 +36,7 @@
       "packagerConfig": {},
       "makers": [
         {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "comunicate"
-          }
+          "name": "@electron-forge/maker-squirrel"
         },
         {
           "name": "@electron-forge/maker-dmg"
