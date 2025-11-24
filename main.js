@@ -9,6 +9,8 @@ function createTerminalWindow() {
 	const terminalWindow = new BrowserWindow({
 		show: false,
 		width: 800,
+		minWidth: 320,
+		minHeight: 420,
 		height: 600,
 		webPreferences: {
 			preload: path.join(app.getAppPath(), "preload.js")
