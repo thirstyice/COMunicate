@@ -26,7 +26,7 @@ function updateDropdown(name, list, selected = "") {
 	if (selected == ""){
 		selected=selector.value;
 	}
-	for (option of currentOptions) {
+	for (const option of currentOptions) {
 		if (option.value ==  "") {
 			continue;
 		}
@@ -44,7 +44,7 @@ function updateDropdown(name, list, selected = "") {
 		}
 	}
 
-	for (element of list) {
+	for (const element of list) {
 		const newOption = document.createElement("option");
 		newOption.innerText = element;
 		newOption.value = element;
@@ -57,7 +57,7 @@ function updateDropdown(name, list, selected = "") {
 
 electron.on("setPortList", (event, portList) => {
 	let paths = [];
-	for (port of portList) {
+	for (const port of portList) {
 		paths.push(port.path)
 	}
 	updateDropdown("port", paths);
@@ -65,7 +65,7 @@ electron.on("setPortList", (event, portList) => {
 
 function connect() {
 	let portSettings = {};
-	for (dropdown of document.getElementById("connection").getElementsByClassName("dropdown")) {
+	for (const dropdown of document.getElementById("connection").getElementsByClassName("dropdown")) {
 		const name = dropdown.id.replace("Selector","");
 		if (dropdown.value == "") {
 			window.alert("No " + name + " selected!");
@@ -81,7 +81,7 @@ function disconnect() {
 	electron.emit("disconnect");
 }
 electron.on("connected", () => {
-	for (dropdown of document.getElementById("connection").getElementsByClassName("dropdown")) {
+	for (const dropdown of document.getElementById("connection").getElementsByClassName("dropdown")) {
 		dropdown.setAttribute("disabled", "");
 	}
 	const button = document.getElementById("connectButton");
@@ -99,7 +99,7 @@ electron.on("connected", () => {
 	;
 });
 electron.on("disconnected", () => {
-	for (dropdown of document.getElementById("connection").getElementsByClassName("dropdown")) {
+	for (const dropdown of document.getElementById("connection").getElementsByClassName("dropdown")) {
 		dropdown.removeAttribute("disabled", "");
 	}
 	const button = document.getElementById("connectButton");
