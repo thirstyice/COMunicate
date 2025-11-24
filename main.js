@@ -1,7 +1,7 @@
 const { app, BrowserWindow, ipcMain, Menu } = require("electron");
-const path = require("path");
-const SerialPort = require("serialport");
-var port = new SerialPort("/dev/null", { autoOpen: false });
+const path = require("node:path");
+const { SerialPort } = require("serialport");
+var port;
 var eol = "";
 var encoding="utf-8";
 
@@ -28,7 +28,8 @@ ipcMain.on("getPortList", (event) => {
 
 ipcMain.on("connect", (event, options) => {
 	function openPort() {
-		port = new SerialPort(options.port, {
+		port = new SerialPort({
+			path: options.port,
 			baudRate: parseInt(options.speed),
 			dataBits: parseInt(options.dataBits),
 			stopBits: parseInt(options.stopBits),
