@@ -116,10 +116,10 @@ electron.on("disconnected", () => {
 		.setAttribute("disabled", "")
 	;
 });
-electron.on("recieved", (event, data) => {
-	const recieved = document.getElementById("recieved").getElementsByTagName("textarea")[0]
+electron.on("received", (event, data) => {
+	const received = document.getElementById("received").getElementsByTagName("textarea")[0]
 	data = data.replace("\r", "␍").replace("\n", "␤").replace(eol, eol+"\n");
-	recieved.value = recieved.value + data;
+	received.value = received.value + data;
 })
 function send() {
 	const message = document.getElementById("message").getElementsByTagName("input")[0];

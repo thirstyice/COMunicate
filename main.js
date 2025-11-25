@@ -53,7 +53,7 @@ ipcMain.on("connect", (event, options) => {
 			}
 		});
 		port.on("data", (data) => {
-			event.reply("recieved", data.toString(encoding));
+			event.reply("received", data.toString(encoding));
 		})
 	}
 	if (port && port.isOpen) {
