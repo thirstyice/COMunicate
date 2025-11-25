@@ -184,7 +184,7 @@ window.onload = function () {
 		eol = newEol.replace("CR", "␍").replace("LF", "␤");
 		const fields = ["received", "sent"];
 		for (const field of fields) {
-			text = document.getElementById(field).getElementsByTagName("textarea")[0];
+			const text = document.getElementById(field).getElementsByTagName("textarea")[0];
 			text.value = text.value.replace("\n","").replace(eol, eol+"\n");
 		}
 	});
