@@ -2,7 +2,6 @@ const { app, BrowserWindow, ipcMain, Menu } = require("electron");
 const path = require("node:path");
 const { SerialPort } = require("serialport");
 var port;
-var eol = "";
 var encoding="utf-8";
 
 function createTerminalWindow() {
@@ -57,7 +56,7 @@ ipcMain.on("connect", (event, options) => {
 			event.reply("recieved", data.toString(encoding));
 		})
 	}
-	if (port.isOpen) {
+	if (port && port.isOpen) {
 		port.close((error)=> {
 			if (error) {
 				console.warn(error);
