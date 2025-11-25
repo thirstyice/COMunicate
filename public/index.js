@@ -53,6 +53,7 @@ function updateDropdown(name, list, selected = "") {
 		}
 		selector.appendChild(newOption);
 	}
+	selector.dispatchEvent(new Event("change"));
 }
 
 electron.on("setPortList", (event, portList) => {
@@ -123,7 +124,7 @@ electron.on("received", (event, data) => {
 })
 function send() {
 	const message = document.getElementById("message").getElementsByTagName("input")[0];
-	electron.emit("send", message.value + eol.replace("␍", "\r").replace("␤","\n"));
+	electron.emit("send", message.value + eol);
 	message.value = "";
 }
 electron.on("sent", (event, message) => {
@@ -133,6 +134,17 @@ electron.on("sent", (event, message) => {
 });
 window.onload = function () {
 	reloadPortsList();
+
+	document.getElementById("eolSelector").addEventListener("change", function() {
+		const newEol = document.getElementById("eolSelector").value;
+		window.localStorage["eol"] = newEol;
+		eol = newEol.replace("CR", "␍").replace("LF", "␤");
+		const fields = ["received", "sent"];
+		for (const field of fields) {
+			const text = document.getElementById(field).getElementsByTagName("textarea")[0];
+			text.value = text.value.replace("\n","").replace(eol, eol+"\n");
+		}
+	});
 
 	updateDropdown("speed",
 		[110, 300, 1200, 2400, 4800, 9600, 14400, 19200, 31250, 38400, 57600, 115200, 250000],
@@ -178,14 +190,4 @@ window.onload = function () {
 			}
 		})
 	;
-	document.getElementById("eolSelector").addEventListener("change", function() {
-		const newEol = document.getElementById("eolSelector").value;
-		window.localStorage["eol"] = newEol;
-		eol = newEol.replace("CR", "␍").replace("LF", "␤");
-		const fields = ["received", "sent"];
-		for (const field of fields) {
-			const text = document.getElementById(field).getElementsByTagName("textarea")[0];
-			text.value = text.value.replace("\n","").replace(eol, eol+"\n");
-		}
-	});
 }
