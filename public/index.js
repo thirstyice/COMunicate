@@ -30,7 +30,7 @@ function updateDropdown(name, list, selected = "") {
 		if (option.value ==  "") {
 			continue;
 		}
-		const index = list.indexOf(option.value);
+		let index = list.indexOf(option.value);
 		if ( index != -1 ) {
 			for (; index<list.length; index++) {
 				list[index]=list[index+1];
