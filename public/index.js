@@ -74,7 +74,7 @@ function connect() {
 		window.localStorage[name]=dropdown.value;
 		portSettings[name]=dropdown.value;
 	}
-	console.log(portSettings);
+	// console.log(portSettings);
 	electron.emit("connect", portSettings);
 }
 function disconnect() {
