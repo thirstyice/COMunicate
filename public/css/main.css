@@ -29,7 +29,7 @@ tbody td {
 tbody>tr>th {
 	height: 1px;
 }
-input {
+#message input, .textbox {
 	font-family: monospace;
 }
 #interface {
