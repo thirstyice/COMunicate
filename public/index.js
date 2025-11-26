@@ -190,4 +190,14 @@ window.onload = function () {
 			}
 		})
 	;
+	document.getElementById("showHex").addEventListener("click", function(event) {
+		const show = event.target.checked;
+		for (const view of document.getElementsByClassName("hexview")) {
+			if (show) {
+				view.removeAttribute("hidden");
+			} else {
+				view.setAttribute("hidden", "");
+			}
+		}
+	});
 }

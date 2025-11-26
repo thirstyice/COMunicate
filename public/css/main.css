@@ -29,7 +29,7 @@ tbody td {
 tbody>tr>th {
 	height: 1px;
 }
-#message input, .textbox {
+#message input, #interface textarea {
 	font-family: monospace;
 }
 #interface {
@@ -53,10 +53,12 @@ td#sendButton {
 #sendButton, #message {
 	height: 1px;
 }
-.textbox {
+textarea {
 	resize: none;
 	width: 100%;
 	height: 100%;
+}
+textarea:disabled {
 	color: initial;
 	background-color: initial;
 	border-color: initial;
