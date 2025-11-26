@@ -135,8 +135,8 @@ electron.on("sent", (event, message) => {
 window.onload = function () {
 	reloadPortsList();
 
-	document.getElementById("eolSelector").addEventListener("change", function() {
-		const newEol = document.getElementById("eolSelector").value;
+	document.getElementById("eolSelector").addEventListener("change", function(event) {
+		const newEol = event.target.value;
 		window.localStorage["eol"] = newEol;
 		eol = newEol.replaceAll("CR", "␍").replaceAll("LF", "␤");
 		const fields = ["received", "sent"];
