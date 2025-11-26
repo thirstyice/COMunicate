@@ -119,7 +119,7 @@ electron.on("disconnected", () => {
 });
 electron.on("received", (event, data) => {
 	const received = document.getElementById("received").getElementsByTagName("textarea")[0]
-	data = data.replace("\r", "␍").replace("\n", "␤").replace(eol, eol+"\n");
+	data = data.replaceAll("\r", "␍").replaceAll("\n", "␤").replaceAll(eol, eol+"\n");
 	received.value = received.value + data;
 })
 function send() {
@@ -129,7 +129,7 @@ function send() {
 }
 electron.on("sent", (event, message) => {
 	const sent = document.getElementById("sent").getElementsByTagName("textarea")[0]
-	message = message.replace(eol, eol+"\n");
+	message = message.replaceAll(eol, eol+"\n");
 	sent.value = sent.value + message;
 });
 window.onload = function () {
@@ -138,11 +138,11 @@ window.onload = function () {
 	document.getElementById("eolSelector").addEventListener("change", function() {
 		const newEol = document.getElementById("eolSelector").value;
 		window.localStorage["eol"] = newEol;
-		eol = newEol.replace("CR", "␍").replace("LF", "␤");
+		eol = newEol.replaceAll("CR", "␍").replaceAll("LF", "␤");
 		const fields = ["received", "sent"];
 		for (const field of fields) {
 			const text = document.getElementById(field).getElementsByTagName("textarea")[0];
-			text.value = text.value.replace("\n","").replace(eol, eol+"\n");
+			text.value = text.value.replaceAll("\n","").replaceAll(eol, eol+"\n");
 		}
 	});
 
